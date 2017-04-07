@@ -4,8 +4,6 @@ using OpenQA.Selenium.Firefox;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace JSErrorCollector.Tests
 {
@@ -78,7 +76,11 @@ namespace JSErrorCollector.Tests
                 sw.Write(resourceContent);
             }
 
-            string resourceUrl = "file://" + tempResourcePath.Replace(Path.DirectorySeparatorChar, '/');
+            string resourceUrl = tempResourcePath.Replace(Path.DirectorySeparatorChar, '/');
+            resourceUrl = Uri.EscapeDataString(resourceUrl)
+                .Replace("%2F", "/")
+                .Replace("%3A", ":");
+            resourceUrl = "file://" + resourceUrl;
             return resourceUrl;
         }
 
