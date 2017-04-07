@@ -1,5 +1,5 @@
-* 超过45000ms无响应：
-selenium 3.3 + geckto  
+* 超过45000ms无响应：  
+selenium 3.3 + geckodriver  
 * 插件被禁用：  
 firefox<=47  
 xpinstall.signatures.required = false  
