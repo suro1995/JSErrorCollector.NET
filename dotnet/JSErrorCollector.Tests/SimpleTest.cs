@@ -180,8 +180,12 @@ namespace JSErrorCollector.Tests
                 sw.Write(resourceContent);
             }
 
-            string resourceUrl = "file://" + tempResourcePath.Replace(Path.DirectorySeparatorChar, '/');
-		    return resourceUrl;
+            string resourceUrl = tempResourcePath.Replace(Path.DirectorySeparatorChar, '/');
+            resourceUrl = Uri.EscapeDataString(resourceUrl)
+                .Replace("%2F", "/")
+                .Replace("%3A", ":");
+            resourceUrl = "file://" + resourceUrl;
+            return resourceUrl;
 	    }
     }
 }

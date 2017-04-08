@@ -17,7 +17,7 @@ namespace JSErrorCollector
         private readonly string sourceName;
         private readonly int lineNumber;
         private readonly string console;
-        private readonly string stack;
+        private readonly string stackTrace;
 
         private JavaScriptError(Dictionary<string, object> map)
         {
@@ -26,7 +26,7 @@ namespace JSErrorCollector
             this.lineNumber = int.Parse(map["lineNumber"].ToString());
             if (map.ContainsKey("console") && map["console"] != null)
                 this.console = map["console"].ToString();
-            this.stack = map["stack"].ToString();
+            this.stackTrace = map["stackTrace"].ToString();
         }
 
         public JavaScriptError(string errorMessage, string sourceName, int lineNumber, string console)
@@ -69,11 +69,11 @@ namespace JSErrorCollector
             }
         }
 
-        public string Stack
+        public string StackTrace
         {
             get
             {
-                return this.stack;
+                return this.stackTrace;
             }
         }
 
@@ -98,7 +98,7 @@ namespace JSErrorCollector
             {
                 s += "\nConsole: " + console;
             }
-            s += "\nStack: \n" + stack;
+            s += "\nStackTrace: \n" + stackTrace;
             return s;
         }
 

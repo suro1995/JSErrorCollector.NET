@@ -122,7 +122,7 @@ var JSErrorCollector_ErrorConsoleListener =
 						sourceName: scriptError.sourceName,
 						lineNumber: scriptError.lineNumber,
             			console: consoleContent,
-            			stack: getStack()
+            			stackTrace: getStack()
             		};
                 	console.log("collecting JS error", err)
                 	JSErrorCollector.addError(err);

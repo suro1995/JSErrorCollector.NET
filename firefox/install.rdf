@@ -8,7 +8,7 @@
     <em:name>JavaScript error collector</em:name>
     <em:version>1.0</em:version>
     <em:description>JavaScript error collector making JS errors available in window's scope.</em:description>
-    <em:creator>Marc Guillemot</em:creator>
+    <em:creator>Marc Guillemot, Yu Zhong</em:creator>
     <!-- optional items -->
     <em:homepageURL>http://kb.mozillazine.org/Getting_started_with_extension_development</em:homepageURL>
 

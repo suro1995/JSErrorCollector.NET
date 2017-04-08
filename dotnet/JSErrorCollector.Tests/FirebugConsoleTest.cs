@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -51,19 +52,26 @@ namespace JSErrorCollector.Tests
 
         private IWebDriver BuildFFDriver()
         {
-            FirefoxProfile ffProfile = new FirefoxProfile();
-            JavaScriptError.AddExtension(ffProfile);
-
-            ffProfile.AddExtension(SaveBinaryResource("firebug-2.0.8-fx.xpi", TestResources.firebug_2_0_8_fx));
-
-            ffProfile.SetPreference("extensions.firebug.showStackTrace", "true");
-            ffProfile.SetPreference("extensions.firebug.delayLoad", "false");
-            ffProfile.SetPreference("extensions.firebug.showFirstRunPage", "false");
-            ffProfile.SetPreference("extensions.firebug.allPagesActivation", "on");
-            ffProfile.SetPreference("extensions.firebug.console.enableSites", "true");
-            ffProfile.SetPreference("extensions.firebug.defaultPanelName", "console");
-
-            return new FirefoxDriver(ffProfile);
+            string env = "remote";
+            IWebDriver driver;
+            if (env == "local-install")
+            {
+                FirefoxProfile ffProfile = new FirefoxProfile();
+                JavaScriptError.AddExtension(ffProfile);
+                driver = new FirefoxDriver(ffProfile);
+            }
+            else if (env == "local-profile")
+            {
+                var profileManager = new FirefoxProfileManager();
+                FirefoxProfile ffProfile = profileManager.GetProfile("SELENIUM");
+                driver = new FirefoxDriver(ffProfile);
+            }
+            else // if (env == "remote")
+            {
+                DesiredCapabilities capability = DesiredCapabilities.Firefox();
+                driver = new RemoteWebDriver(new Uri("http://localhost:4444/wd/hub"), capability);
+            }
+            return driver;
         }
 
         private String GetResource(String fileName)

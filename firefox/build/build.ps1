@@ -40,7 +40,7 @@ if (test-path($zipPath))
 
 if (test-path($xpiPath))
 {
-    rm $zipPath
+    rm $xpiPath
 }
 
 dir $sourceDir | add-zip $zipPath
